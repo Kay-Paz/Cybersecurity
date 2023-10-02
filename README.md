@@ -3,8 +3,8 @@
 
 - ## Proof of Concept: 
 
-  - ### `pkexec` privilege escalation
+  - ### [`pkexec` privilege escalation](privEsc/pkexec.md)
 
 - ## Projects:
 
-  - ### Network of various honeypots - using [Deutsche Telekom's TPot Platform](https://github.com/telekom-security/tpotce)
+  - ### [Network of various honeypots](honey_pot/honeypot-TPOT.md) - using Deutsche Telekom's TPot Platform
