@@ -1,5 +1,5 @@
 # [Mastercard's Virtual Security Analyst Experience](https://www.theforage.com/virtual-internships/prototype/vcKAB5yYAgvemepGQ/Mastercard-Cybersecurity-Virtual-Experience-Program#lp)
-> Explore a day in the life of a Security Analyst at Mastercard!  
+ > *Explore a day in the life of a Security Analyst at Mastercard!*
  
 - In partnership with [Forage](https://www.theforage.com/) and [New York Jobs CEO Council ](https://nyjobsceocouncil.org/)  
     
@@ -14,6 +14,11 @@ All the links lead to the same URL placeholder that was listed in the instructio
 I also made sure to update email addresses to reflect the correct @mastercard.com address and included a typical "confidentiality notice" attached to most corporate emails.
 
     
-- [Simulated-phishing-email-mastercard-campaign.pdf](https://github.com/Kay-Paz/Cybersecurity/files/12786612/Simulated-phishing-email-mastercard-campaign.pdf)
- 
-- [See my original post on LinkedIn](https://linkedin.com/feed/update/6928209039545802752/)
+
+[**Phishing email designed for simulated campaign.**](https://github.com/Kay-Paz/Cybersecurity/files/12786648/Simulated-phishing-email-mastercard-campaign.pdf)
+
+
+***
+
+
+[*See my original post on LinkedIn*](https://linkedin.com/feed/update/6928209039545802752/)
