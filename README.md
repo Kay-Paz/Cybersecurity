@@ -7,4 +7,4 @@
 
 - ## Projects:
 
-  - ### Network of various honeypots - using [Deutsche Telekom's TPot Platform ](https://github.com/telekom-security/tpotce)
+  - ### Network of various honeypots - using [Deutsche Telekom's TPot Platform](https://github.com/telekom-security/tpotce)
