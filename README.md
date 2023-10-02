@@ -11,4 +11,4 @@
 
 - ## Upskilling:
 
-  - ### [Python](https://github.com/Kay-Paz/Python/README.md)
+  - ### [Python](https://github.com/Kay-Paz/Python/blob/main/README.md)
