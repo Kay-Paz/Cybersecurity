@@ -15,4 +15,4 @@
 
   - ### [Python](https://github.com/Kay-Paz/Python)
  
-  - ### SQL
+  - ### [SQL](SQL/learn-SQL-Codeacademy.md)
