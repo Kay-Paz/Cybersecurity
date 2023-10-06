@@ -575,6 +575,475 @@ WHERE imdb_rating IS NOT NULL;
 
 #### BETWEEN
 
+The `BETWEEN` operator is used in a `WHERE` clause to filter the result set within a certain range. It accepts two values that are either numbers, text or dates.
+
+For example, this statement filters the result set to only include movies with `year`s from 1990 up to, and including 1999.
+
+```SQL
+SELECT *
+FROM movies
+WHERE year BETWEEN 1990 AND 1999;
+```
+
+When the values are text, `BETWEEN` filters the result set for within the alphabetical range.
+
+In this statement, `BETWEEN` filters the result set to only include movies with `name`s that begin with the letter ‘A’ up to, but not including ones that begin with ‘J’.
+
+```SQL
+SELECT *
+FROM movies
+WHERE name BETWEEN 'A' AND 'J';
+```
+
+However, if a movie has a name of simply ‘J’, it would actually match. This is because `BETWEEN` goes up to the second value — up to ‘J’. So the movie named ‘J’ would be included in the result set but not ‘Jaws’.
+
+#### AND
+
+Sometimes we want to combine multiple conditions in a `WHERE` clause to make the result set more specific and useful.
+
+One way of doing this is to use the `AND` operator. Here, we use the `AND` operator to only return 90’s romance movies.
+
+```SQL
+SELECT * 
+FROM movies
+WHERE year BETWEEN 1990 AND 1999
+   AND genre = 'romance';
+```
+
+- `year BETWEEN 1990 AND 1999` is the 1st condition
+- `genre = 'romance'` is the 2nd condition
+- `AND` combines the two conditions.
+
+With `AND`, **both conditions must be true for the row to be included in the result**.
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/0a9dad0e-93cb-46dd-87b6-9c642fa57c33)
+
+#### OR
+
+Similar to `AND`, the `OR` operator can also be used to combine multiple conditions in `WHERE`, but there is a fundamental difference:
+
+- `AND` operator displays a row if **all** the conditions are true
+- `OR` operator displays a row if **any** condition is true
+
+Suppose we want to check out a new movie or something action-packed:
+
+```SQL
+SELECT *
+FROM movies
+WHERE year > 2014
+   OR genre = 'action';
+```
+
+- `year > 2014` is the 1st condition
+- `genre = 'action'` is the 2nd condition
+- `OR` combines the two conditions
+
+*With `OR`, if any of the conditions are true, then the row is added to the result.*
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/45562dcb-8f2b-4064-9405-b6d68d592ba5)
+
+#### ORDER BY
+
+It is often useful to list the data in our result set in a particular order.
+
+We can sort the results using `ORDER BY`, either alphabetically or numerically. Sorting the results often makes the data more useful and easier to analyze.
+
+For example, if we want to sort everything by the movie’s title from A through Z:
+
+```SQL
+SELECT *
+FROM movies
+ORDER BY name;
+```
+
+- `ORDER BY` is a clause that indicates you want to sort the result set by a particular column
+- `name` is the specified column
+
+Sometimes we want to sort things in a decreasing order. For example, if we want to select all of the well-received movies, sorted from highest to lowest by their year:
+
+```SQL
+SELECT *
+FROM movies
+WHERE imdb_rating > 8
+ORDER BY year DESC;
+```
+
+- `DESC` is a keyword used in `ORDER BY` to sort the results in descending order (high to low or Z-A)
+- `ASC` is a keyword used in `ORDER BY` to sort the results in ascending order (low to high or A-Z)
+
+The column that we `ORDER BY` doesn’t even have to be one of the columns that we’re displaying.
+
+*Note: `ORDER BY` always goes after `WHERE` (if `WHERE` is present).*
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/c930f51b-156a-4cac-a95f-2acb0e0c86d0)
+
+#### LIMIT
+
+We’ve been working with a fairly small table (fewer than 250 rows), but most SQL tables contain hundreds of thousands of records. 
+In those situations, it becomes important to cap the number of rows in the result.
+
+For instance, imagine that we just want to see a few examples of records.
+
+```SQL
+SELECT *
+FROM movies
+LIMIT 10;
+```
+
+`LIMIT` is a clause that lets you specify the maximum number of rows the result set will have. This saves space on our screen and makes our queries run faster.
+
+Here, we specify that the result set can’t have more than 10 rows.
+
+`LIMIT` always goes at the very end of the query. Also, it is not supported in all SQL databases.
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/f7324107-3015-4693-a222-448422349dbf)
+
+#### CASE
+
+A `CASE` statement allows us to create different outputs (usually in the `SELECT` statement). It is SQL’s way of handling if-then logic.
+
+Suppose we want to condense the ratings in `movies` to three levels:
+
+- *If the rating is above 8, then it is Fantastic*
+- *If the rating is above 6, then it is Poorly Received*
+- *Else, Avoid at All Costs*
+
+```SQL
+SELECT name,
+ CASE
+  WHEN imdb_rating > 8 THEN 'Fantastic'
+  WHEN imdb_rating > 6 THEN 'Poorly Received'
+  ELSE 'Avoid at All Costs'
+ END
+FROM movies;
+```
+
+- Each `WHEN` tests a condition and the following `THEN` gives us the string if the condition is true
+- The `ELSE` gives us the string if all the above conditions are false
+- The `CASE` statement must end with `END`
+
+In the result, you have to scroll right because the column name is very long. To shorten it, we can rename the column to ‘Review’ using `AS`:
+
+```SQL
+SELECT name,
+ CASE
+  WHEN imdb_rating > 8 THEN 'Fantastic'
+  WHEN imdb_rating > 6 THEN 'Poorly Received'
+  ELSE 'Avoid at All Costs'
+ END AS 'Review'
+FROM movies;
+```
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/8aa50b29-01f6-488a-8e1b-1d8e8349a2d6)
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/193c652f-5041-41c7-badb-0b24edad624d)
+
+### REVIEW
+
+We just learned how to query data from a database using SQL. We also learned how to filter queries to make the information more specific and useful.
+
+Let’s summarize:
+
+- `SELECT` is the clause we use every time we want to query information from a database
+- `AS` renames a column or table
+- `DISTINCT` return unique values
+- `WHERE` is a popular command that lets you filter the results of the query based on conditions that you specify
+- `LIKE` and `BETWEEN` are special operators
+- `AND` and `OR` combines multiple conditions
+- `ORDER BY` sorts the result
+- `LIMIT` specifies the maximum number of rows that the query will return
+- `CASE` creates different outputs
+
+### Aggregate Functions
+
+#### Introduction
+
+SQL Queries don’t just access raw data, they can also perform calculations on the raw data to answer specific data questions.
+
+Calculations performed on multiple rows of a table are called **aggregates**.
+
+In this lesson, we have given you a table named `fake_apps` which is made up of fake mobile applications data.
+
+Here is a quick preview of some important aggregates that we will cover in the next five exercises:
+
+- `COUNT():` count the number of rows
+- `SUM():` the sum of the values in a column
+- `MAX()/MIN():` the largest/smallest value
+- `AVG():` the average of the values in a column
+- `ROUND():` round the values in the column
+
+#### COUNT
+
+The fastest way to calculate how many rows are in a table is to use the `COUNT()` function.
+
+`COUNT()` is a function that takes the name of a column as an argument and counts the number of non-empty values in that column.
+
+```SQL
+SELECT COUNT(*)
+FROM table_name;
+```
+
+Here, we want to count every row, so we pass `*` as an argument inside the parenthesis.
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/20b51472-38f9-42ad-836f-901f21aabe5f)
+
+#### SUM
+
+SQL makes it easy to add all values in a particular column using `SUM()`.
+
+`SUM()` is a function that takes the name of a column as an argument and returns the sum of all the values in that column.
+
+What is the total number of downloads for all of the apps combined?
+
+```SQL
+SELECT SUM(downloads)
+FROM fake_apps;
+```
+
+This adds all values in the `downloads` column.
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/baf3a05b-d8e2-4c4a-b199-0326a084bf21)
+
+#### MAX / MIN
+
+The `MAX()` and `MIN()` functions return the highest and lowest values in a column, respectively.
+
+How many downloads does the most popular app have?
+
+```SQL
+SELECT MAX(downloads)
+FROM fake_apps;
+```
+
+The most popular app has 31,090 downloads!
+
+`MAX()` takes the name of a column as an argument and returns the largest value in that column. Here, we returned the largest value in the `downloads` column.
+
+`MIN()` works the same way but it does the exact opposite; it returns the smallest value.
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/56a8d1c3-9899-45b1-817b-fefd8fef19e9)
+
+#### AVERAGE
+
+SQL uses the `AVG()` function to quickly calculate the average value of a particular column.
+
+The statement below returns the average number of downloads for an app in our database:
+
+```SQL
+SELECT AVG(downloads)
+FROM fake_apps;
+```
+
+The `AVG()` function works by taking a column name as an argument and returns the average value for that column.
+
+#### ROUND
+
+By default, SQL tries to be as precise as possible without rounding. We can make the result table easier to read using the `ROUND()` function.
+
+`ROUND()` function takes two arguments inside the parenthesis:
+
+- a column name
+- an integer
+
+It rounds the values in the column to the number of decimal places specified by the integer.
+
+```SQL
+SELECT ROUND(price, 0)
+FROM fake_apps;
+```
+
+Here, we pass the column `price` and integer `0` as arguments. SQL rounds the values in the column to 0 decimal places in the output.
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/0b3adcee-74ae-43dd-8df7-8b1b183152e1)
+
+#### GROUP BY pt 1
+
+Oftentimes, we will want to calculate an aggregate for data with certain characteristics.
+
+For instance, we might want to know the mean IMDb ratings for all movies each year. We could calculate each number by a series of queries with different `WHERE` statements, like so:
+
+```SQL
+SELECT AVG(imdb_rating)
+FROM movies
+WHERE year = 1999;
+
+SELECT AVG(imdb_rating)
+FROM movies
+WHERE year = 2000;
+
+SELECT AVG(imdb_rating)
+FROM movies
+WHERE year = 2001;
+```
+
+and so on.
+
+Luckily, there’s a better way!
+
+We can use `GROUP BY` to do this in a single step:
+
+```SQL
+SELECT year,
+   AVG(imdb_rating)
+FROM movies
+GROUP BY year
+ORDER BY year;
+```
+
+`GROUP BY` is a clause in SQL that is used with **[aggregate functions](https://www.codecademy.com/resources/docs/sql/aggregate-functions)**. It is used in collaboration with the `SELECT` statement to arrange identical
+data into groups.
+
+The `GROUP BY` statement comes after any `WHERE` statements, but before `ORDER BY` or `LIMIT`.
+
+##### Exercises
+
+1. Here, our aggregate function is `COUNT()` and we arranged price into groups:
+
+```SQL
+SELECT price, COUNT(*) 
+FROM fake_apps
+GROUP BY price;
+```
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/8c3424fb-0f0a-45b0-abec-ebea3d90a276)
+
+2. In the previous query, add a `WHERE` clause to count the total number of apps that have been downloaded more than 20,000 times, at each price.
+
+```SQL
+SELECT price, COUNT(*)
+FROM fake_apps
+WHERE downloads > 20000
+GROUP BY price;
+```
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/e8b1c9fc-75f6-4d74-9778-73913cfb5bb1)
+
+3. Write a new query that calculates the total number of downloads for each category.
+
+Select `category` and `SUM(downloads)`.
+
+```SQL
+SELECT category, SUM(downloads)
+FROM fake_apps
+GROUP BY category;
+```
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/4eb41ed2-f671-4079-835f-7df4f19f2f61)
+
+#### GROUP BY pt 2
+
+Sometimes, we want to `GROUP BY` a calculation done on a column.
+
+For instance, we might want to know how many movies have IMDb ratings that round to 1, 2, 3, 4, 5. We could do this using the following syntax:
+
+```SQL
+SELECT ROUND(imdb_rating),
+   COUNT(name)
+FROM movies
+GROUP BY ROUND(imdb_rating)
+ORDER BY ROUND(imdb_rating);
+```
+
+However, this query may be time-consuming to write and more prone to error.
+
+SQL lets us use column reference(s) in our `GROUP BY` that will make our lives easier.
+
+- `1` is the first column selected
+- `2` is the second column selected
+- `3` is the third column selected
+  
+and so on.
+
+The following query is equivalent to the one above:
+
+```SQL
+SELECT ROUND(imdb_rating),
+   COUNT(name)
+FROM movies
+GROUP BY 1
+ORDER BY 1;
+```
+
+Here, the `1` refers to the first column in our `SELECT` statement, `ROUND(imdb_rating)`.
+
+#### HAVING
+
+In addition to being able to group data using `GROUP BY`, SQL also allows you to filter which groups to include and which to exclude.
+
+For instance, imagine that we want to see how many movies of different genres were produced each year, but we only care about years and genres with at least 10 movies.
+
+We can’t use `WHERE` here because we don’t want to filter the rows; we want to filter groups.
+
+This is where `HAVING` comes in.
+
+`HAVING` is very similar to `WHERE`. In fact, all types of `WHERE` clauses you learned about thus far can be used with `HAVING`.
+
+We can use the following for the problem:
+
+```SQL
+SELECT year,
+   genre,
+   COUNT(name)
+FROM movies
+GROUP BY 1, 2
+HAVING COUNT(name) > 10;
+```
+
+- When we want to limit the results of a query based on values of the individual rows, use `WHERE`
+- When we want to limit the results of a query based on an aggregate property, use `HAVING`
+
+`HAVING` statement always comes after `GROUP BY`, but before `ORDER BY` and `LIMIT`.
+
+Suppose we have the query below:
+
+```SQL
+SELECT price, 
+   ROUND(AVG(downloads)),
+   COUNT(*)
+FROM fake_apps
+GROUP BY price;
+```
+
+It returns the average downloads (rounded) and the number of apps – at each price point.
+
+However, certain price points don’t have very many apps, so their average downloads are less meaningful.
+
+Add a `HAVING` clause to restrict the query to price points that have more than 10 apps.
+
+```SQL
+SELECT price, 
+   ROUND(AVG(downloads)),
+   COUNT(*)
+FROM fake_apps
+GROUP BY price
+HAVING COUNT(*) > 10;
+```
+
+The total number of apps at each price point would be given by `COUNT(*)`.
+
+`COUNT(*) > 10` is the condition.
+
+Because the condition has an aggregate function in it, we have to use `HAVING` instead of `WHERE`.
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/0949817b-bc0a-4dec-bc5d-cae5579b9360)
+
+### REVIEW
+
+You just learned how to use aggregate functions to perform calculations on your data. What can we generalize so far?
+
+- `COUNT():` count the number of rows
+- `SUM():` the sum of the values in a column
+- `MAX()`/`MIN():` the largest/smallest value
+- `AVG():` the average of the values in a column
+- `ROUND():` round the values in the column
+
+*Aggregate functions* combine multiple rows together to form a single value of more meaningful information.
+
+- `GROUP BY` is a clause used with aggregate functions to combine data from one or more columns
+- `HAVING` limit the results of a query based on an aggregate property
+
+
+
 
 
 
