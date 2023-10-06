@@ -310,7 +310,7 @@ CREATE TABLE celebs (
 >   - usually in the form of values like the `id`, or identifier column
 >   - By using a constraint like the `PRIMARY KEY`, we can ensure that every row has their own unique `id` value
 
-### Review
+### Manipulation Review
 
 - SQL is a programming language designed to manipulate and manage data stored in relational databases  
   - A relational database is a database that organizes information into one or more tables  
@@ -323,6 +323,260 @@ CREATE TABLE celebs (
   - `UPDATE` edits a row in a table
   - `DELETE` FROM deletes rows from a table
 - Constraints add information about how a column can be used
+
+***
+
+### Queries
+
+#### AS
+
+`AS` is a keyword in SQL that allows you to **rename a column or table using an** ***alias***.
+
+The new name can be anything you want as long as you put it inside of single quotes. Here we renamed the name column as `Titles`:
+
+```SQL
+SELECT name AS 'Titles'
+FROM movies;
+```
+
+Some important things to note:
+
+Although it’s not always necessary, it is considered best practice to surround your aliases with single quotes.
+Note that this practice is *specific to SQLite*, the RDBMS used in this exercise. 
+
+When you work with *other RDBMSs, notably PostgreSQL, no quotes or double quotes may be required* in place of single quotes.
+
+When using `AS`, the columns are **not being renamed in the table**. **The aliases only appear in the result.**
+
+***[Can we alias multiple columns in a single query?](https://discuss.codecademy.com/t/can-we-alias-multiple-columns-in-a-single-query/349721?_gl=1*1cc7trb*_ga*MTYwNDUxNDAzNy4xNjk1MjQ2NTA3*_ga_3LRZM6TM9L*MTY5NjYwNTI5My45LjEuMTY5NjYwNjA2OC42MC4wLjA.)***
+> **Yes, you can alias multiple columns at a time in the same query.**
+>
+> It is advisable to always include quotes around the new alias.
+> Quotes are required when the alias contains spaces, punctuation marks, special characters or reserved keywords.
+>
+> It is simply more convenient to always include quotes around the new alias.
+>
+> Example:
+
+```SQL
+SELECT course_id AS "Course ID", exercise_id AS "Exercise ID"
+FROM bugs;
+```
+
+#### DISTINCT
+
+`DISTINCT` is used to **return unique values in the output**. **It filters out all duplicate values in the specified column(s).**
+
+For instance:
+
+```SQL
+SELECT tools 
+FROM inventory;
+```
+
+might produce:
+
+| tools  |
+|--------|
+| Hammer |
+| Nails  |
+| Nails  |
+| Nails  |
+
+By adding `DISTINCT` before the column name:
+
+```SQL
+SELECT DISTINCT tools 
+FROM inventory;
+```
+
+the result would now be:
+
+| tools  |
+|--------|
+| Hammer |
+| Nails  |
+
+
+**[Can we apply `DISTINCT` to a `SELECT` query with multiple columns?](https://discuss.codecademy.com/t/can-we-apply-distinct-to-a-select-query-with-multiple-columns/349723?_gl=1*o3rmh2*_ga*MTYwNDUxNDAzNy4xNjk1MjQ2NTA3*_ga_3LRZM6TM9L*MTY5NjYwNTI5My45LjEuMTY5NjYwNjM1MC42MC4wLjA.)**
+> **Yes, the `DISTINCT` clause can be applied to any valid `SELECT` query.**
+>
+> It is important to note that **`DISTINCT` will filter out all rows that are not unique in terms of all selected columns**.
+>
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/84c9fc67-c0ef-4f78-8cab-cb8a71ee3b48)
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/d6a1cd70-b908-4693-a211-591944ac96ba)
+
+
+#### WHERE
+
+We can restrict our query results using the `WHERE` clause in order to **obtain only the information we want**.
+
+Following this format, the statement below filters the result set to only include top rated movies (IMDb ratings greater than 8):
+
+```SQL
+SELECT *
+FROM movies
+WHERE imdb_rating > 8;
+```
+
+###### How does it work?
+
+- The `WHERE` clause filters the result set to only include rows where the following condition is true
+  - `imdb_rating > 8` is the condition
+    - Here, only rows with a value greater than `8` in the `imdb_rating` column will be returned
+- The `>` is an operator
+  - Operators create a condition that can be evaluated as either *true* or *false*
+
+Comparison operators used with the `WHERE` clause are:
+- `=` equal to
+- `!=` not equal to
+- `>` greater than
+- `<` less than
+- `>=` greater than or equal to
+- `<=` less than or equal to
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/25253316-e613-4caa-9e3f-9afa69e10012)  
+
+
+***[Can we compare values of two columns in a `WHERE` clause?](https://discuss.codecademy.com/t/can-we-compare-values-of-two-columns-in-a-where-clause/349724?_gl=1*157c22p*_ga*MTYwNDUxNDAzNy4xNjk1MjQ2NTA3*_ga_3LRZM6TM9L*MTY5NjYwNTI5My45LjEuMTY5NjYwNjgxOS42MC4wLjA.)***
+> **Yes, within a WHERE clause you can compare the values of two columns.**
+>
+> When comparing two columns in a `WHERE` clause, for each row in the database, it will check the value of each column and compare them.
+>
+> Example:
+
+```SQL
+/* 
+This will return all rows where the value in the 
+x column is greater than the y column value. 
+*/
+
+SELECT x, y
+FROM coordinates
+WHERE x > y;
+```
+
+#### LIKE pt 1
+
+`LIKE` can be a useful operator when you want to compare similar values.
+
+The movies table contains two films with similar titles, ‘Se7en’ and ‘Seven’.
+
+How could we select all movies that start with ‘Se’ and end with ‘en’ and have exactly one character in the middle?
+
+```SQL
+SELECT * 
+FROM movies
+WHERE name LIKE 'Se_en';
+```
+
+- `LIKE` is a special operator used with the `WHERE` clause to search for a specific pattern in a column
+- `name LIKE` 'Se_en' is a condition evaluating the `name` column for a specific pattern
+- `Se_en` represents a pattern with a wildcard character
+
+The `_` means you can substitute any individual character here without breaking the pattern. The names `Seven` and `Se7en` both match this pattern.
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/98d36e69-5cc5-4001-b959-0321beaabe56)
+
+
+***[Can we apply the `LIKE` operator to values other than `TEXT`?](https://discuss.codecademy.com/t/can-we-apply-the-like-operator-to-values-other-than-text/349726?_gl=1*1mh95jp*_ga*MTYwNDUxNDAzNy4xNjk1MjQ2NTA3*_ga_3LRZM6TM9L*MTY5NjYwNTI5My45LjEuMTY5NjYwNzI2OC42MC4wLjA.)***
+> **Yes, you can apply the LIKE operator to numerical values as well.**
+>
+> Whenever you use `LIKE` however, you must always wrap the pattern within a pair of quotations, whether for matching a number or a string.
+>
+> Example:
+
+```SQL
+/* 
+This will select movies where the id number
+starts with 2 and is followed by any two numbers.
+*/
+SELECT * 
+FROM movies
+WHERE id LIKE '2__';
+```
+
+#### LIKE pt 2
+
+The percentage sign `%` is another wildcard character that can be used with `LIKE`.
+
+This statement below filters the result set to only include movies with names that begin with the letter ‘A’:
+
+```SQL
+SELECT * 
+FROM movies
+WHERE name LIKE 'A%';
+```
+
+`%` is a wildcard character that matches zero or more missing letters in the pattern. 
+
+For example:
+
+- `A%` matches all movies with names that begin with letter ‘A’
+- `%a` matches all movies that end with ‘a’
+
+We can also use `%` both before and after a pattern:
+
+```SQL
+SELECT * 
+FROM movies 
+WHERE name LIKE '%man%';
+```
+
+Here, any movie that contains the word ‘man’ in its name will be returned in the result.
+
+`LIKE` is **not case sensitive**. ‘Batman’ and ‘Man of Steel’ will both appear in the result of the query above.
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/64829b42-3dae-4e0f-a57f-928020ded25b)
+
+***[How do we search for patterns containing the actual characters "%" or "_"?](https://discuss.codecademy.com/t/how-do-we-search-for-patterns-containing-the-actual-characters-or/349727?_gl=1*l8snrl*_ga*MTYwNDUxNDAzNy4xNjk1MjQ2NTA3*_ga_3LRZM6TM9L*MTY5NjYwNTI5My45LjEuMTY5NjYwNzU1Mi42MC4wLjA.)***
+> When searching for a pattern containing the specific characters % or _, we can utilize the escape character `\`, similarly to its use in Python.
+>
+> If we want to search for these specific characters, we can simply add the escape character immediately before them.
+>
+> Example:
+
+```SQL
+/* 
+In this pattern, we use an escape character before '%'.
+This will only match "%" and not be used like the
+wildcard character.
+
+This query will match any titles that end with
+' 100%'.
+*/
+
+SELECT *
+FROM books
+WHERE title LIKE '% 100\%';
+```
+
+#### IS NULL
+
+Unknown values are indicated by `NULL`.
+
+It is not possible to test for `NULL` values with comparison operators, such as `=` and `!=`.
+
+Instead, we will have to use these operators:
+- `IS NULL`
+- `IS NOT NULL`
+
+To filter for all movies with an IMDb rating:
+
+```SQL
+SELECT name
+FROM movies 
+WHERE imdb_rating IS NOT NULL;
+```
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/5ce16281-bf77-4bb3-9113-66b459cabe25)
+
+#### BETWEEN
+
+
+
 
 
 
