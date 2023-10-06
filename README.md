@@ -14,3 +14,5 @@
 - ## Upskilling:
 
   - ### [Python](https://github.com/Kay-Paz/Python)
+ 
+  - ### SQL
