@@ -21,7 +21,9 @@
 >
 > The statements covered in this course use **SQLite Relational Database Management System [(RDBMS)](https://www.codecademy.com/articles/what-is-rdbms-sql)**. You can also access a [glossary](https://www.codecademy.com/article/sql-commands) of all the SQL commands taught in this course.
 
-### Manipulation
+***
+
+## Manipulation
 
 - A **relational database** is a *database that organizes information into one or more tables*. Here, the relational database contains one table.
 - A **table** is a collection of data organized into rows and columns. Tables are sometimes referred to as *relations*.
@@ -43,7 +45,7 @@ The first row in the celebs table has:
 - A `name` of `Justin Bieber`
 - An `age` of `22`
 
-#### Statements
+### Statements
 
 The code below is a SQL statement. A **statement** is text that the database recognizes as a valid command. Statements always end in a semicolon `;`.
 
@@ -80,7 +82,7 @@ SELECT * FROM celebs;
 
 > I believe the asterisk * would be considered a parameter as it's being used as a wildcard to mean "all".*
 
-#### CREATE
+### CREATE
 
 ```SQL
 CREATE TABLE celebs (
@@ -97,7 +99,7 @@ CREATE TABLE celebs (
     - `name` is the second column in the table. It stores values of data type `TEXT`
     - `age` is the third column in the table. It stores values of data type `INTEGER`
 
-#### INSERT
+### INSERT
 
 The `INSERT` statement **inserts a new row into a table.** We can use the `INSERT` statement when we want to *add new records*.  
 
@@ -119,7 +121,7 @@ VALUES (1, 'Justin Bieber', 22);
 
 ![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/959d38e3-f191-4716-89cf-dd86e89d3f69)
 
-##### Inserting Multiple Rows:
+#### Inserting Multiple Rows:
 
 ```SQL
 INSERT INTO celebs (id, name, age) 
@@ -153,7 +155,7 @@ VALUES
 (row3_val1, row3_val2, row3_val3);
 ```
 
-#### SELECT
+### SELECT
 
 `SELECT` statements are used to **fetch data from a database**.  
 
@@ -185,7 +187,7 @@ Here, the **result set** contains *every column* in the `celebs` table.
 
 `SELECT` statements *always return a new table* called the **result set**.
 
-#### ALTER
+### ALTER
 
 The `ALTER TABLE` statement *adds a new column to a table*. You can use this command when you want to add columns to a table.  
 
@@ -215,7 +217,7 @@ SELECT * FROM celebs;
 
 ![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/988f6c9e-50b5-42c4-8bc2-bae74617124f)
 
-#### UPDATE
+### UPDATE
 
 The `UPDATE` statement *edits a row in a table*. You can use the `UPDATE` statement when you want to *change existing records*.  
 
@@ -236,7 +238,7 @@ WHERE id = 4;
 >
 > The `UPDATE` statement is used to **modify rows**. However, `UPDATE` *can ONLY update A row, and CANNOT REMOVE OR ADD rows*.
 
-#### DELETE
+### DELETE
 
 The `DELETE FROM` statement *deletes one or more rows from a table*. You can use the statement when you want to *delete existing records*.  
 
@@ -266,7 +268,7 @@ WHERE condition
 LIMIT 5;
 ```
 
-#### Constraints
+### Constraints
 
 [Constraints](https://www.codecademy.com/resources/docs/sql/constraints?page_ref=catalog) that add information about how a column can be used are invoked after specifying the data type for a column. They can be used to tell the database to reject inserted data that
 does not adhere to a certain restriction.  
@@ -326,9 +328,9 @@ CREATE TABLE celebs (
 
 ***
 
-### Queries
+## Queries
 
-#### AS
+### AS
 
 `AS` is a keyword in SQL that allows you to **rename a column or table using an** ***alias***.
 
@@ -363,7 +365,7 @@ SELECT course_id AS "Course ID", exercise_id AS "Exercise ID"
 FROM bugs;
 ```
 
-#### DISTINCT
+### DISTINCT
 
 `DISTINCT` is used to **return unique values in the output**. **It filters out all duplicate values in the specified column(s).**
 
@@ -409,7 +411,7 @@ the result would now be:
 ![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/d6a1cd70-b908-4693-a211-591944ac96ba)
 
 
-#### WHERE
+### WHERE
 
 We can restrict our query results using the `WHERE` clause in order to **obtain only the information we want**.
 
@@ -421,7 +423,7 @@ FROM movies
 WHERE imdb_rating > 8;
 ```
 
-###### How does it work?
+##### How does it work?
 
 - The `WHERE` clause filters the result set to only include rows where the following condition is true
   - `imdb_rating > 8` is the condition
@@ -458,7 +460,7 @@ FROM coordinates
 WHERE x > y;
 ```
 
-#### LIKE pt 1
+### LIKE pt 1
 
 `LIKE` can be a useful operator when you want to compare similar values.
 
@@ -498,7 +500,7 @@ FROM movies
 WHERE id LIKE '2__';
 ```
 
-#### LIKE pt 2
+### LIKE pt 2
 
 The percentage sign `%` is another wildcard character that can be used with `LIKE`.
 
@@ -553,7 +555,7 @@ FROM books
 WHERE title LIKE '% 100\%';
 ```
 
-#### IS NULL
+### IS NULL
 
 Unknown values are indicated by `NULL`.
 
@@ -573,7 +575,7 @@ WHERE imdb_rating IS NOT NULL;
 
 ![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/5ce16281-bf77-4bb3-9113-66b459cabe25)
 
-#### BETWEEN
+### BETWEEN
 
 The `BETWEEN` operator is used in a `WHERE` clause to filter the result set within a certain range. It accepts two values that are either numbers, text or dates.
 
@@ -597,7 +599,7 @@ WHERE name BETWEEN 'A' AND 'J';
 
 However, if a movie has a name of simply ‘J’, it would actually match. This is because `BETWEEN` goes up to the second value — up to ‘J’. So the movie named ‘J’ would be included in the result set but not ‘Jaws’.
 
-#### AND
+### AND
 
 Sometimes we want to combine multiple conditions in a `WHERE` clause to make the result set more specific and useful.
 
@@ -618,7 +620,7 @@ With `AND`, **both conditions must be true for the row to be included in the res
 
 ![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/0a9dad0e-93cb-46dd-87b6-9c642fa57c33)
 
-#### OR
+### OR
 
 Similar to `AND`, the `OR` operator can also be used to combine multiple conditions in `WHERE`, but there is a fundamental difference:
 
@@ -642,7 +644,7 @@ WHERE year > 2014
 
 ![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/45562dcb-8f2b-4064-9405-b6d68d592ba5)
 
-#### ORDER BY
+### ORDER BY
 
 It is often useful to list the data in our result set in a particular order.
 
@@ -677,7 +679,7 @@ The column that we `ORDER BY` doesn’t even have to be one of the columns that 
 
 ![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/c930f51b-156a-4cac-a95f-2acb0e0c86d0)
 
-#### LIMIT
+### LIMIT
 
 We’ve been working with a fairly small table (fewer than 250 rows), but most SQL tables contain hundreds of thousands of records. 
 In those situations, it becomes important to cap the number of rows in the result.
@@ -698,7 +700,7 @@ Here, we specify that the result set can’t have more than 10 rows.
 
 ![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/f7324107-3015-4693-a222-448422349dbf)
 
-#### CASE
+### CASE
 
 A `CASE` statement allows us to create different outputs (usually in the `SELECT` statement). It is SQL’s way of handling if-then logic.
 
@@ -738,7 +740,7 @@ FROM movies;
 
 ![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/193c652f-5041-41c7-badb-0b24edad624d)
 
-### REVIEW
+### Queries REVIEW
 
 We just learned how to query data from a database using SQL. We also learned how to filter queries to make the information more specific and useful.
 
@@ -754,9 +756,11 @@ Let’s summarize:
 - `LIMIT` specifies the maximum number of rows that the query will return
 - `CASE` creates different outputs
 
-### Aggregate Functions
+***
 
-#### Introduction
+## Aggregate Functions
+
+### Introduction
 
 SQL Queries don’t just access raw data, they can also perform calculations on the raw data to answer specific data questions.
 
@@ -772,7 +776,7 @@ Here is a quick preview of some important aggregates that we will cover in the n
 - `AVG():` the average of the values in a column
 - `ROUND():` round the values in the column
 
-#### COUNT
+### COUNT
 
 The fastest way to calculate how many rows are in a table is to use the `COUNT()` function.
 
@@ -787,7 +791,7 @@ Here, we want to count every row, so we pass `*` as an argument inside the paren
 
 ![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/20b51472-38f9-42ad-836f-901f21aabe5f)
 
-#### SUM
+### SUM
 
 SQL makes it easy to add all values in a particular column using `SUM()`.
 
@@ -804,7 +808,7 @@ This adds all values in the `downloads` column.
 
 ![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/baf3a05b-d8e2-4c4a-b199-0326a084bf21)
 
-#### MAX / MIN
+### MAX / MIN
 
 The `MAX()` and `MIN()` functions return the highest and lowest values in a column, respectively.
 
@@ -823,7 +827,7 @@ The most popular app has 31,090 downloads!
 
 ![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/56a8d1c3-9899-45b1-817b-fefd8fef19e9)
 
-#### AVERAGE
+### AVERAGE
 
 SQL uses the `AVG()` function to quickly calculate the average value of a particular column.
 
@@ -836,7 +840,7 @@ FROM fake_apps;
 
 The `AVG()` function works by taking a column name as an argument and returns the average value for that column.
 
-#### ROUND
+### ROUND
 
 By default, SQL tries to be as precise as possible without rounding. We can make the result table easier to read using the `ROUND()` function.
 
@@ -856,7 +860,7 @@ Here, we pass the column `price` and integer `0` as arguments. SQL rounds the va
 
 ![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/0b3adcee-74ae-43dd-8df7-8b1b183152e1)
 
-#### GROUP BY pt 1
+### GROUP BY pt 1
 
 Oftentimes, we will want to calculate an aggregate for data with certain characteristics.
 
@@ -895,7 +899,7 @@ data into groups.
 
 The `GROUP BY` statement comes after any `WHERE` statements, but before `ORDER BY` or `LIMIT`.
 
-##### Exercises
+#### Exercises
 
 1. Here, our aggregate function is `COUNT()` and we arranged price into groups:
 
@@ -930,7 +934,7 @@ GROUP BY category;
 
 ![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/4eb41ed2-f671-4079-835f-7df4f19f2f61)
 
-#### GROUP BY pt 2
+### GROUP BY pt 2
 
 Sometimes, we want to `GROUP BY` a calculation done on a column.
 
@@ -966,7 +970,7 @@ ORDER BY 1;
 
 Here, the `1` refers to the first column in our `SELECT` statement, `ROUND(imdb_rating)`.
 
-#### HAVING
+### HAVING
 
 In addition to being able to group data using `GROUP BY`, SQL also allows you to filter which groups to include and which to exclude.
 
@@ -1027,7 +1031,7 @@ Because the condition has an aggregate function in it, we have to use `HAVING` i
 
 ![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/0949817b-bc0a-4dec-bc5d-cae5579b9360)
 
-### REVIEW
+### Aggregate Functions Review
 
 You just learned how to use aggregate functions to perform calculations on your data. What can we generalize so far?
 
@@ -1042,8 +1046,75 @@ You just learned how to use aggregate functions to perform calculations on your 
 - `GROUP BY` is a clause used with aggregate functions to combine data from one or more columns
 - `HAVING` limit the results of a query based on an aggregate property
 
+***
 
+## Multiple Tables
 
+### Introduction
+
+In order to efficiently store data, we often spread related information across multiple tables.
+
+For instance, imagine that we’re running a magazine company where users can have different types of subscriptions to different products. Different subscriptions might have many different properties. Each customer would also have lots of associated information.
+
+We could have one table with all of the following information:
+
+- `order_id`
+- `customer_id`
+- `customer_name`
+- `customer_address`
+- `subscription_id`
+- `subscription_description`
+- `subscription_monthly_price`
+- `subscription_length`
+- `purchase_date`
+
+However, a lot of this information would be repeated. If the same customer has multiple subscriptions, that customer’s name and address will be reported multiple times. If the same subscription type is ordered by
+multiple customers, then the subscription price and subscription description will be repeated. This will make our table big and unmanageable.
+
+So instead, we can split our data into three tables:
+
+1. `orders` would contain just the information necessary to describe what was ordered:
+    - `order_id, customer_id, subscription_id, purchase_date`
+2. `subscriptions` would contain the information to describe each type of subscription:
+    - `subscription_id, description, price_per_month, subscription_length`
+3. `customers` would contain the information for each customer:
+    - `customer_id, customer_name, address`
+
+In this lesson, we’ll learn the SQL commands that will help us work with data that is stored in multiple tables.
+
+```SQL
+SELECT *
+FROM orders
+LIMIT 5;
+
+SELECT *
+FROM subscriptions
+LIMIT 5;
+
+SELECT * 
+FROM customers
+LIMIT 5;
+```
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/552f9deb-173e-4e9e-bf51-1c238af5b94b)
+
+### Combining Tables Manually
+
+Let’s return to our magazine company. Suppose we have the three tables described in the previous exercise – shown in the browser on the right (we are going to try something new!):
+
+![image](https://github.com/Kay-Paz/Cybersecurity/assets/91631432/98ddccf1-9211-4ec0-978b-b317da908d38)  
+
+- `orders`
+- `subscriptions`
+- `customers`
+
+If we just look at the `orders` table, we can’t really tell what’s happened in each order. However, if we refer to the other tables, we can get a complete picture.
+
+Let’s examine the order with an `order_id` of 2. It was purchased by the customer with a `customer_id` of 2.
+
+To find out the customer’s name, we look at the `customers` table and look for the item with a `customer_id` value of 2. We can see that Customer 2’s name is ‘Jane Doe’ and that she lives at ‘456 Park Ave’.
+
+Doing this kind of matching is called joining two tables.
 
 
 
